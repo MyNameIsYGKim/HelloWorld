@@ -9,11 +9,20 @@ public class ConditionExe2 {
 			System.out.println("메뉴를 선택하세요(숫자입력)>> ");
 			System.out.println("1.로그인 2.로그아웃 3.회원가입 4.종료");
 			String menu = scn.nextLine();
-			
+			if(Integer.parseInt(menu) == 1) {
+				login();
+			}else if(Integer.parseInt(menu) == 2) {
+				logout();
+			}else if(Integer.parseInt(menu) == 3) {
+				signUp();
+			}else if(Integer.parseInt(menu) == 4) {
+				System.out.println("end of prog.");
+				break;
+			}
+			  
 			// switch, if else if else
 			// "1" => equals, 1 => ==
 		}
-		System.out.println("end of prog.");
 		
 	} // end of main();
 	
