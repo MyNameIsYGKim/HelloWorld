@@ -19,7 +19,7 @@ public class ConditionExe2 {
 				System.out.println("end of prog.");
 				break;
 			}
-			  
+			
 			// switch, if else if else
 			// "1" => equals, 1 => ==
 		}
