@@ -8,14 +8,15 @@ public class ConditionExe2 {
 		while(true) {
 			System.out.println("메뉴를 선택하세요(숫자입력)>> ");
 			System.out.println("1.로그인 2.로그아웃 3.회원가입 4.종료");
-			String menu = scn.nextLine();
-			if(Integer.parseInt(menu) == 1) {
+			
+			int num = Integer.parseInt(scn.nextLine());
+			if(num == 1) {
 				login();
-			}else if(Integer.parseInt(menu) == 2) {
+			}else if(num == 2) {
 				logout();
-			}else if(Integer.parseInt(menu) == 3) {
+			}else if(num == 3) {
 				signUp();
-			}else if(Integer.parseInt(menu) == 4) {
+			}else if(num == 4) {
 				System.out.println("end of prog.");
 				break;
 			}
