@@ -13,6 +13,8 @@ public class MemoApp {
 	Memo[] memo = new Memo[50];
 	int memoNum = 0;
 	
+	// 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
+	
 	// 등록(addMemo)
 	boolean addMemo(Memo mm) {
 		if(memoNum >= 50) { // 공간이 없으면 실패.
