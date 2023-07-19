@@ -9,6 +9,7 @@ public class MainExe {
 		AddressApp app = new AddressApp();
 		Scanner scn = new Scanner(System.in);
 		boolean run = true;
+		Friend friend = null;
 		
 		// String name = "", phone = "";
 		
@@ -18,18 +19,21 @@ public class MainExe {
 			int put = Integer.parseInt(scn.nextLine());
 			
 			if(put == 1) { // 등록 ---------------------------------------------
-				System.out.println("선택>> 회사원(1), 대학친구(2)");
+				System.out.println("선택>> 회사원(1), 대학친구(2), 일반친구(3)");
 				int put2 = Integer.parseInt(scn.nextLine());
 				
-				System.out.println("등록> (이름, 번호, 회사, 부서)");
-				String name = scn.next();
-				String phone = scn.next();
+				System.out.println("이름>> ");
+				String name = scn.nextLine();
+				System.out.println("전화번호>> ");
+				String phone = scn.nextLine();
 				
 				if(put2 == 1) { // 회사친구 등록--------------------------------
-					String comp1 = scn.next();
+					System.out.println("회사명>> ");
+					String comp1 = scn.nextLine();
+					System.out.println("부서>> ");
 					String comp2 = scn.nextLine();
 					
-					Friend f1 = new CompFriend(comp1, comp2, comp3, comp4);
+					Friend f1 = new CompFriend(name, phone, comp1, comp2);
 					boolean result1 = app.addFriend(f1);
 					if (result1 == true) {
 						System.out.println("등록완료.");
@@ -37,18 +41,25 @@ public class MainExe {
 						System.out.println("등록실패.");
 					}
 				}else if(put2 == 2) { // 대학친구 등록----------------------------
-					System.out.println("등록> (이름, 번호, 대학, 전공)");
-					String comp1 = scn.next();
-					String comp2 = scn.next();
-					String comp3 = scn.next();
-					String comp4 = scn.nextLine();
+					System.out.println("학교명>> ");
+					String univ1 = scn.nextLine();
+					System.out.println("전공>> ");
+					String univ2 = scn.nextLine();
 					
-					Friend f2 = new UnivFriend(comp1, comp2, comp3, comp4);
+					Friend f2 = new UnivFriend(name, phone, univ1, univ2);
 					boolean result2 = app.addFriend(f2);
 					if (result2 == true) {
 						System.out.println("등록완료.");
 					}else {
 						System.out.println("등록실패.");
+					}
+				}else if(put2 == 3) { // 일반친구 등록----------------------
+					friend = new Friend(name, phone);
+				}
+			}else if(put == 2) { // 2.목록--------------------------
+				for(int i=0; i < app.friends.length; i++) {
+					if(app.friends[i] != null) {
+						System.out.printf("이름");
 					}
 				}
 			}

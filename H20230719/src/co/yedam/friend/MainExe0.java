@@ -11,7 +11,7 @@ public class MainExe0 {
 		// 1.등록 2.목록 3.수정 4.삭제 5.단건조회 6.종료
 		// 등록> 1.학교, 2.회사, 3.친구
 		boolean run = true;
-		AddressApp app = new AddressApp();
+		AddressApp0 app = new AddressApp0();
 		
 		String name = "", phone = "";
 		Friend friend = null;
