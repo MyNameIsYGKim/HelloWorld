@@ -2,7 +2,7 @@ package co.yedam.friend;
 
 import java.util.Scanner;
 
-public class MainExe {
+public class MainExe1 {
 	public static void main(String[] args) {
 		
 		// 1.등록 2.목록 3.수정 4.삭제 5.단건조회 6.종료
@@ -31,6 +31,17 @@ public class MainExe {
 //				System.out.println("잘못 선택했습니다.");
 //				continue;
 //			}
+			
+			try {
+				// 1 ~ 6 메뉴 이외의 메뉴 선택하면...
+				if (put < 1 || put > 6) {
+					throw new MenuException(put);
+				}
+			} catch(MenuException e) {
+				e.showMessage();
+				continue;
+			}
+			
 			
 			if(put == INIT_MENU.ADD) { // 등록 ---------------------------------------------
 				System.out.println("선택>> 회사원(1), 대학친구(2), 일반친구(3)");
@@ -79,7 +90,6 @@ public class MainExe {
 				}
 			}else if(put == INIT_MENU.EDIT) { // 3.수정 -------------------------------------
 				
-				
 			}else if(put == INIT_MENU.DEL) { // 4.삭제 -------------------------------------
 				
 			}else if(put == INIT_MENU.SEARCH) { // 5.상세조회 -------------------------------------
@@ -90,8 +100,7 @@ public class MainExe {
 				System.out.println("잘못된 입력입니다.");
 			}
 			
-		
-		}
+		} // end of While.
 		
 		
 	} // end of main.
