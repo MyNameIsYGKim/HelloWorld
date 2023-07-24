@@ -58,33 +58,34 @@ public class MemoManager {
 		System.out.println("날짜 입력>> ");
 		String date = scn.nextLine();
 		// 입력된 날짜의 메모를 출력.
+		int num = 0;
 		for (Memo memo : memoStorage) {
-			int num = 0;
 			if (memo.getDate().equals(date)) {
 				System.out.println(memo.toString());
 				System.out.println("조회 완료.");
 				num++;
 			}
-			if (num == 0) {
-				System.out.println("조회 실패.");
-			}
 		}
-
+		if(num == 0) {
+			System.out.println("조회 실패.");
+		}
 	}
 
 	public void deleteData() { // 삭제.
 		System.out.println("번호 입력>> ");
 		int no = Integer.parseInt(scn.nextLine());
 
+		int num = 0;
 		for (int i = 0; i < memoStorage.size(); i++) {
 			if (memoStorage.get(i).getNo() == no) {
 				memoStorage.remove(i);
 				System.out.println("삭제완료.");
-				break;
+				num++;
 			}
+		}
+		if(num == 0) {
 			System.out.println("잘못된 번호입니다.");
 		}
-
 	}
 
 	public void storeToFile() throws Exception {
