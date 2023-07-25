@@ -74,7 +74,7 @@ public class BoardApp {
 					if (Menu == 1) {
 						System.out.println("아이디는 변경할 수 없습니다.");
 					} else if (Menu == 2) {
-						System.out.println("이름 변경할 수 없습니다.");
+						System.out.println("이름은 변경할 수 없습니다.");
 					} else if (Menu == 3) {
 						manager.editPw();
 						System.out.println("변경 완료.");

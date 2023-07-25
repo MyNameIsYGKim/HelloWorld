@@ -54,7 +54,7 @@ public class Board implements Serializable {
 
 	@Override
 	public String toString() {
-		return "no=" + no + ", 제목=" + title + ", 내용=" + content + ", id=" + id + ", 날짜=" + date + "]";
+		return "no=" + no + ", 제목=" + title + ", 내용=" + content + ", id=" + id + ", 날짜=" + date;
 	}
 }
 
