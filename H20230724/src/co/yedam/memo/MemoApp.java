@@ -10,7 +10,7 @@ public class MemoApp {
 
 		Scanner scn = new Scanner(System.in);
 		boolean run = true;
-		int menu = -1;
+		int menu;
 
 		try {
 			while (run) {

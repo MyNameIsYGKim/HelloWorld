@@ -33,7 +33,7 @@ public class MemberManageExe {
 
 				} else if (put == 2) { // 2.수정
 					try {
-						System.out.println("추가> 이름 주소 연락처");
+						System.out.println("수정> 이름 주소 연락처");
 						String str = scn.nextLine();
 						String[] data = str.split(" ");
 						Member member = new Member(data[0], data[1], data[2]);
