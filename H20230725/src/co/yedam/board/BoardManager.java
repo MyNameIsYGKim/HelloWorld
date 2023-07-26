@@ -158,7 +158,7 @@ public class BoardManager {
 	public void u_readFromFile() {
 		FileInputStream fis;
 		try {
-			fis = new FileInputStream("c:/Temp/userList.text");
+			fis = new FileInputStream("c:/Temp/userList.txt");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			uList = (List<User>) ois.readObject();
 			ois.close();
@@ -172,7 +172,7 @@ public class BoardManager {
 	public void b_readFromFile() {
 		FileInputStream fis;
 		try {
-			fis = new FileInputStream("c:/Temp/boardList.text");
+			fis = new FileInputStream("c:/Temp/boardList.txt");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			bList = (List<Board>) ois.readObject();
 			ois.close();
@@ -190,7 +190,7 @@ public class BoardManager {
 	
 	// 파일에 저장하기
 	public void u_storeToFile() throws Exception {
-		FileOutputStream fos = new FileOutputStream("c:/Temp/userList.text");
+		FileOutputStream fos = new FileOutputStream("c:/Temp/userList.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(uList);
 		oos.flush();
@@ -201,7 +201,7 @@ public class BoardManager {
 
 	// 파일에 저장하기
 	public void b_storeToFile() throws Exception {
-		FileOutputStream fos = new FileOutputStream("c:/Temp/boardList.text");
+		FileOutputStream fos = new FileOutputStream("c:/Temp/boardList.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(bList);
 		oos.flush();
