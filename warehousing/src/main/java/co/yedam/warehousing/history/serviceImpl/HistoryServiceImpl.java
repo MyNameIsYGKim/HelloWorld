@@ -22,7 +22,7 @@ public class HistoryServiceImpl implements HistoryService {
 	// ResultSet = ResultSet 타입으로 결과값을 변환하여 저장하기 위해.
 
 	@Override
-	public int historyBuyInsert(HistoryVO vo) {
+	public int historyInsert(HistoryVO vo) { // 구매, 판매, 폐기
 		int n = 0;
 		String sql = "INSERT INTO HISTORY VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
@@ -89,25 +89,51 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public HistoryVO historySelect(HistoryVO vo) {
+	public List<HistoryVO> historySelect(String str) {
 		String sql = "SELECT * FROM HISTORY WHERE HISTORY_NO = ?";
+		List<HistoryVO> historys = new ArrayList<>();
+		HistoryVO vo;
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, vo.getHistoryNo());
+			preparedStatement.setString(1, str);
 			resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
+				vo = new HistoryVO();
 				vo.setHistoryNo(resultSet.getInt("history_no"));
-				
+				vo.setHistoryType(resultSet.getString("history_type"));
+				vo.setProductNo(resultSet.getInt("produnt_no"));
+				vo.setProductName(resultSet.getString("product_name"));
+				vo.setProductPrice(resultSet.getInt("product_price"));
+				vo.setHistorySellPrice(resultSet.getInt("history_sell_price"));
+				vo.setHistoryAmount(resultSet.getInt("history_amount"));
+				vo.setHistoryCost(resultSet.getInt("history_cost"));
+				vo.setHistoryDate(resultSet.getDate("history_date"));
+				historys.add(vo);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
 		}
-		return null;
+		return historys;
 	}
 
 	@Override
 	public int historyDelete(HistoryVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int n = 0;
+		String sql = "DELETE FROM HISTORY WHERE HISTORY_NO = ?";
+		try {
+			connection = dao.getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, vo.getHistoryNo());
+			n = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return n;
 	}
 
 	private void close() {

@@ -10,6 +10,7 @@ public class ProductVO {
 	private String productLocation;
 	private int productAmount;
 	
+	@Override
 	public String toString() {
 		System.out.print(productNo + " ");
 		System.out.print(productName + " ");

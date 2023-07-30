@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.accessibility.AccessibleRelationSet;
-
 import co.yedam.warehousing.common.DataSource;
 import co.yedam.warehousing.product.service.ProductService;
 import co.yedam.warehousing.product.service.ProductVO;
@@ -43,13 +41,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productUpdate(ProductVO vo) {
 		int n = 0;
-		String sql = "UPDATE PRODUCT SET PRODUCT_PRICE = ?, " + "PRODUCT_LOCATION = ? WHERE PRODUCT_NO = ?";
+		String sql = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, " + 
+				"PRODUCT_LOCATION = ? WHERE PRODUCT_NO = ?";
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(3, vo.getProductNo());
-			preparedStatement.setInt(1, vo.getProductPrice());
-			preparedStatement.setString(2, vo.getProductLocation());
+			preparedStatement.setString(1, vo.getProductName());
+			preparedStatement.setInt(2, vo.getProductPrice());
+			preparedStatement.setString(3, vo.getProductLocation());
+			preparedStatement.setInt(4, vo.getProductNo());
 			n = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				vo = new ProductVO();
 				vo.setProductNo(resultSet.getInt("product_no"));
 				vo.setProductName(resultSet.getString("product_name"));
@@ -94,14 +94,14 @@ public class ProductServiceImpl implements ProductService {
 				vo.setProductAmount(resultSet.getInt("product_amount"));
 				products.add(vo);
 			}
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
 		return products;
 	}
-	
+
 	@Override
 	public List<ProductVO> productSelect(String str) {
 		String sql = "select * from product where product_name like '%?%'";
@@ -110,14 +110,23 @@ public class ProductServiceImpl implements ProductService {
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, );
+			preparedStatement.setString(1, str);
 			resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				vo = new ProductVO();
-				
+				vo.setProductNo(resultSet.getInt("product_no"));
+				vo.setProductName(resultSet.getString("product_name"));
+				vo.setProductPrice(resultSet.getInt("product_price"));
+				vo.setProductLocation(resultSet.getString("product_location"));
+				vo.setProductAmount(resultSet.getInt("product_amount"));
+				products.add(vo);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
 		}
-		return vo;
+		return products;
 	}
 
 	private void close() {
