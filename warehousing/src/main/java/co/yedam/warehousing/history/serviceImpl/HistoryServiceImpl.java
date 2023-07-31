@@ -120,13 +120,13 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public int historyDelete(HistoryVO vo) {
+	public int historyDelete(int no) {
 		int n = 0;
 		String sql = "DELETE FROM HISTORY WHERE HISTORY_NO = ?";
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, vo.getHistoryNo());
+			preparedStatement.setInt(1, no);
 			n = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

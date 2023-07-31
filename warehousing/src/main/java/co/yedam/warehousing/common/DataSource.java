@@ -1,5 +1,6 @@
 package co.yedam.warehousing.common;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DataSource {
-	private static DataSource datasource = new DataSource();
+	private static DataSource datasource;
 	private String driver;
 	private String url;
 	private String user;
@@ -20,10 +21,12 @@ public class DataSource {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("DB 연결 실패.");
 		}
 	}
 	
 	public static DataSource getInstance() {
+		datasource = new DataSource();
 		return datasource;
 	}
 	
@@ -47,7 +50,7 @@ public class DataSource {
 			url = properties.getProperty("url");
 			user = properties.getProperty("user");
 			password = properties.getProperty("password");
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

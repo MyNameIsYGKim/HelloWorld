@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
 	private ResultSet resultSet;
 
 	@Override
-	public int productInsert(ProductVO vo) {
+	public int productInsert(ProductVO vo) { // 등록
 		int n = 0;
 		String sql = "INSERT INTO PRODUCT VALUES(?,?,?,?,?)";
 		try {
@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int productUpdate(ProductVO vo) {
+	public int productUpdate(ProductVO vo) { // 수정
 		int n = 0;
 		String sql = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, " + 
 				"PRODUCT_LOCATION = ? WHERE PRODUCT_NO = ?";
@@ -60,24 +60,24 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int productDelete(ProductVO vo) {
+	public int productDelete(int no) { // 삭제
 		int n = 0;
 		String sql = "DELETE FROM PRODUCT WHERE PRODUCT_NO = ?";
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, vo.getProductNo());
+			preparedStatement.setInt(1, no);
 			n = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		return 0;
+		return n;
 	}
 
 	@Override
-	public List<ProductVO> productSelectList() {
+	public List<ProductVO> productSelectList() { // 전체조회
 		String sql = "SELECT * FROM PRODUCT";
 		List<ProductVO> products = new ArrayList<>();
 		ProductVO vo;
@@ -103,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductVO> productSelect(String str) {
+	public List<ProductVO> productSelect(String str) { // 상세조회
 		String sql = "select * from product where product_name like '%?%'";
 		List<ProductVO> products = new ArrayList<>();
 		ProductVO vo;

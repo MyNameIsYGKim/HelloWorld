@@ -8,5 +8,5 @@ public interface HistoryService {
 //	int historyDissuseInsert(HistoryVO vo);
 	List<HistoryVO> historySelectList();
 	List<HistoryVO> historySelect(String str);
-	int historyDelete(HistoryVO vo);
+	int historyDelete(int no);
 }
