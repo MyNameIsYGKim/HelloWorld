@@ -24,7 +24,7 @@ public class HistoryServiceImpl implements HistoryService {
 	@Override
 	public int historyInsert(HistoryVO vo) { // 구매, 판매, 폐기
 		int n = 0;
-		String sql = "INSERT INTO HISTORY VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO HISTORY VALUES(?,?,?,?,?,?,?,?)";
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
@@ -32,11 +32,10 @@ public class HistoryServiceImpl implements HistoryService {
 			preparedStatement.setString(2, vo.getHistoryType());
 			preparedStatement.setInt(3, vo.getProductNo());
 			preparedStatement.setString(4, vo.getProductName());
-			preparedStatement.setInt(5, vo.getProductPrice());
-			preparedStatement.setInt(6, vo.getHistoryPrice());
-			preparedStatement.setInt(7, vo.getHistoryAmount());
-			preparedStatement.setInt(8, vo.getHistoryCost());
-			preparedStatement.setDate(9, vo.getHistoryDate());
+			preparedStatement.setInt(5, vo.getHistoryPrice());
+			preparedStatement.setInt(6, vo.getHistoryAmount());
+			preparedStatement.setInt(7, vo.getHistoryCost());
+			preparedStatement.setDate(8, vo.getHistoryDate());
 			n = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,19 +44,7 @@ public class HistoryServiceImpl implements HistoryService {
 		}
 		return n;
 	}
-
-//	@Override
-//	public int historySellInsert(HistoryVO vo) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public int historyDissuseInsert(HistoryVO vo) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-
+	
 	@Override
 	public List<HistoryVO> historySelectList() { // 전체조회
 		String sql = "SELECT * FROM HISTORY ORDER BY HISTORY_NO";
@@ -73,7 +60,6 @@ public class HistoryServiceImpl implements HistoryService {
 				vo.setHistoryType(resultSet.getString("history_type"));
 				vo.setProductNo(resultSet.getInt("product_no"));
 				vo.setProductName(resultSet.getString("product_name"));
-				vo.setProductPrice(resultSet.getInt("product_price"));
 				vo.setHistoryPrice(resultSet.getInt("history_price"));
 				vo.setHistoryAmount(resultSet.getInt("history_amount"));
 				vo.setHistoryCost(resultSet.getInt("history_cost"));
@@ -105,7 +91,6 @@ public class HistoryServiceImpl implements HistoryService {
 				vo.setHistoryType(resultSet.getString("history_type"));
 				vo.setProductNo(resultSet.getInt("produnt_no"));
 				vo.setProductName(resultSet.getString("product_name"));
-				vo.setProductPrice(resultSet.getInt("product_price"));
 				vo.setHistoryPrice(resultSet.getInt("history_price"));
 				vo.setHistoryAmount(resultSet.getInt("history_amount"));
 				vo.setHistoryCost(resultSet.getInt("history_cost"));

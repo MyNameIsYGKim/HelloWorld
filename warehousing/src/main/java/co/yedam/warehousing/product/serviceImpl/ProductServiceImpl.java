@@ -20,15 +20,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productInsert(ProductVO vo) { // 등록
 		int n = 0;
-		String sql = "INSERT INTO PRODUCT VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO PRODUCT VALUES(?,?,?,?)";
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, vo.getProductNo());
 			preparedStatement.setString(2, vo.getProductName());
-			preparedStatement.setInt(3, vo.getProductPrice());
-			preparedStatement.setString(4, vo.getProductLocation());
-			preparedStatement.setInt(5, vo.getProductAmount());
+			preparedStatement.setString(3, vo.getProductLocation());
+			preparedStatement.setInt(4, vo.getProductAmount());
 			n = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,14 +40,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productUpdate(ProductVO vo) { // 수정
 		int n = 0;
-		String sql = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_PRICE = ?, " + 
-				"PRODUCT_LOCATION = ? WHERE PRODUCT_NO = ?";
+		String sql = "UPDATE PRODUCT SET PRODUCT_NAME = ?, PRODUCT_LOCATION = ?, "
+				+ "PRODUCT_AMOUNT = ? WHERE PRODUCT_NO = ?";
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, vo.getProductName());
-			preparedStatement.setInt(2, vo.getProductPrice());
-			preparedStatement.setString(3, vo.getProductLocation());
+			preparedStatement.setString(2, vo.getProductLocation());
+			preparedStatement.setInt(3, vo.getProductAmount());
 			preparedStatement.setInt(4, vo.getProductNo());
 			n = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -89,7 +88,6 @@ public class ProductServiceImpl implements ProductService {
 				vo = new ProductVO();
 				vo.setProductNo(resultSet.getInt("product_no"));
 				vo.setProductName(resultSet.getString("product_name"));
-				vo.setProductPrice(resultSet.getInt("product_price"));
 				vo.setProductLocation(resultSet.getString("product_location"));
 				vo.setProductAmount(resultSet.getInt("product_amount"));
 				products.add(vo);
@@ -117,7 +115,6 @@ public class ProductServiceImpl implements ProductService {
 				vo = new ProductVO();
 				vo.setProductNo(resultSet.getInt("product_no"));
 				vo.setProductName(resultSet.getString("product_name"));
-				vo.setProductPrice(resultSet.getInt("product_price"));
 				vo.setProductLocation(resultSet.getString("product_location"));
 				vo.setProductAmount(resultSet.getInt("product_amount"));
 				products.add(vo);
