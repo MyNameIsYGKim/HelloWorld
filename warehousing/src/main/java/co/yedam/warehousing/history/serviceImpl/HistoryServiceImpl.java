@@ -33,7 +33,7 @@ public class HistoryServiceImpl implements HistoryService {
 			preparedStatement.setInt(3, vo.getProductNo());
 			preparedStatement.setString(4, vo.getProductName());
 			preparedStatement.setInt(5, vo.getProductPrice());
-			preparedStatement.setInt(6, vo.getHistorySellPrice());
+			preparedStatement.setInt(6, vo.getHistoryPrice());
 			preparedStatement.setInt(7, vo.getHistoryAmount());
 			preparedStatement.setInt(8, vo.getHistoryCost());
 			preparedStatement.setDate(9, vo.getHistoryDate());
@@ -59,8 +59,8 @@ public class HistoryServiceImpl implements HistoryService {
 //	}
 
 	@Override
-	public List<HistoryVO> historySelectList() {
-		String sql = "SELECT * FROM HISTORY";
+	public List<HistoryVO> historySelectList() { // 전체조회
+		String sql = "SELECT * FROM HISTORY ORDER BY HISTORY_NO";
 		List<HistoryVO> historys = new ArrayList<>();
 		HistoryVO vo;
 		try {
@@ -71,10 +71,10 @@ public class HistoryServiceImpl implements HistoryService {
 				vo = new HistoryVO();
 				vo.setHistoryNo(resultSet.getInt("history_no"));
 				vo.setHistoryType(resultSet.getString("history_type"));
-				vo.setProductNo(resultSet.getInt("produnt_no"));
+				vo.setProductNo(resultSet.getInt("product_no"));
 				vo.setProductName(resultSet.getString("product_name"));
 				vo.setProductPrice(resultSet.getInt("product_price"));
-				vo.setHistorySellPrice(resultSet.getInt("history_sell_price"));
+				vo.setHistoryPrice(resultSet.getInt("history_price"));
 				vo.setHistoryAmount(resultSet.getInt("history_amount"));
 				vo.setHistoryCost(resultSet.getInt("history_cost"));
 				vo.setHistoryDate(resultSet.getDate("history_date"));
@@ -89,14 +89,15 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public List<HistoryVO> historySelect(String str) {
-		String sql = "SELECT * FROM HISTORY WHERE HISTORY_NO = ?";
+	public List<HistoryVO> historySelect(String str) { // 상세조회
+		String sql = "SELECT * FROM HISTORY WHERE HISTORY_NAME LIKE ?"
+				+ " ORDER BY HISTORY_NO";
 		List<HistoryVO> historys = new ArrayList<>();
 		HistoryVO vo;
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, str);
+			preparedStatement.setString(1, "%"+str+"%");
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				vo = new HistoryVO();
@@ -105,7 +106,7 @@ public class HistoryServiceImpl implements HistoryService {
 				vo.setProductNo(resultSet.getInt("produnt_no"));
 				vo.setProductName(resultSet.getString("product_name"));
 				vo.setProductPrice(resultSet.getInt("product_price"));
-				vo.setHistorySellPrice(resultSet.getInt("history_sell_price"));
+				vo.setHistoryPrice(resultSet.getInt("history_price"));
 				vo.setHistoryAmount(resultSet.getInt("history_amount"));
 				vo.setHistoryCost(resultSet.getInt("history_cost"));
 				vo.setHistoryDate(resultSet.getDate("history_date"));
@@ -120,7 +121,7 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public int historyDelete(int no) {
+	public int historyDelete(int no) { // 삭제
 		int n = 0;
 		String sql = "DELETE FROM HISTORY WHERE HISTORY_NO = ?";
 		try {

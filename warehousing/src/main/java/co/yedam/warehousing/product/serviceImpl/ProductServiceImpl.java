@@ -78,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductVO> productSelectList() { // 전체조회
-		String sql = "SELECT * FROM PRODUCT";
+		String sql = "SELECT * FROM PRODUCT ORDER BY PRODUCT_NO";
 		List<ProductVO> products = new ArrayList<>();
 		ProductVO vo;
 		try {
@@ -104,13 +104,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductVO> productSelect(String str) { // 상세조회
-		String sql = "select * from product where product_name like '%?%'";
+		String sql = "SELECT * FROM PRODUCT WHERE PRODUCT_NAME LIKE ?"
+				+ " ORDER BY PRODUCT_NO";
 		List<ProductVO> products = new ArrayList<>();
 		ProductVO vo;
 		try {
 			connection = dao.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, str);
+			preparedStatement.setString(1, "%"+str+"%");
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				vo = new ProductVO();

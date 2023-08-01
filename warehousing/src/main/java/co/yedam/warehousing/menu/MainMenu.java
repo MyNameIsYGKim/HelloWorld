@@ -1,9 +1,12 @@
 package co.yedam.warehousing.menu;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
+import java.util.Collections;
+import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +23,11 @@ public class MainMenu {
 	private HistoryService hs = new HistoryServiceImpl();
 	private ProductVO pvo = new ProductVO();
 	private HistoryVO hvo = new HistoryVO();
+
+	java.util.Date utilDate = new java.util.Date();
+	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	DecimalFormat dFormatter = new DecimalFormat("###,###,###");
 
 	private void mainTitle() { // 전체메뉴
 		System.out.println("┌─ <창고 관리> ─┐");
@@ -72,11 +79,11 @@ public class MainMenu {
 						break;
 					}
 				case 2:
-						if (historyManager() == 0) { // 거래내역 관리
-							b = true;
-						} else {
-							break;
-						}
+					if (historyManager() == 0) { // 거래내역 관리
+						b = true;
+					} else {
+						break;
+					}
 				case 3:
 					System.out.println("종료합니다.");
 					b = true;
@@ -86,6 +93,8 @@ public class MainMenu {
 				}
 			} catch (NumberFormatException e) {
 				System.out.println("잘못된 입력. 처음으로..");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("값이 부족합니다. 처음으로..");
 			}
 		} while (!b);
 		sc.close();
@@ -97,60 +106,54 @@ public class MainMenu {
 		do {
 			productTitle();
 			key = Integer.parseInt(sc.nextLine());
-			switch (key) {
-			case 1:
+			if (key == 1) {
 				if (productInsert()) {
 					System.out.println("등록성공!");
 				} else {
 					System.out.println("등록실패!");
 				}
-				return 1;
-			case 2:
+			} else if (key == 2) {
 				if (productUpdate()) {
 					System.out.println("수정성공!");
 				} else {
 					System.out.println("수정실패!");
 				}
-				return 1;
-			case 3:
+			} else if (key == 3) {
 				if (productDelete()) {
 					System.out.println("삭제성공!");
 				} else {
 					System.out.println("삭제실패!");
 				}
-				return 1;
-			case 4:
+			} else if (key == 4) {
 				productSelectList();
-				return 1;
-			case 5:
+			} else if (key == 5) {
 				productSelect();
-				return 1;
-			case 6:
+			} else if (key == 6) {
 				b = true;
-				return 1;
-			case 7:
+			} else if (key == 7) {
 				b = true;
 				return 0;
-			default:
+			} else {
 				System.out.println("잘못된 입력.");
 			}
+
 		} while (!b);
-		if (key != 7) {
+		if (key != 6) {
 			sc.close();
 		}
 		return 1;
 	}
 
 	private int getProductNo() { // 상품번호 지정하기
-		int n = 1;
+		int n = 0;
 		for (int i = 0; i < ps.productSelectList().size(); i++) {
-			if (ps.productSelectList().get(i) != null) {
-				n++;
+			if (ps.productSelectList() != null && ps.productSelectList().get(i).getProductNo() > n) {
+				n = ps.productSelectList().get(i).getProductNo();
 			} else {
 				break;
 			}
 		}
-		return n;
+		return n + 1;
 	}
 
 	private boolean productInsert() { // 상품관리-등록
@@ -191,7 +194,7 @@ public class MainMenu {
 	}
 
 	private void productSelectList() { // 상품관리-전체조회
-		if (ps.productSelectList() != null) {
+		if (!ps.productSelectList().isEmpty()) {
 			System.out.println("리스트를 불러옵니다..");
 			System.out.printf("%-4s %-7s %6s %4s %4s\n", "번호", "상품명", "가격", "위치", "재고");
 			for (int i = 0; i < ps.productSelectList().size(); i++) {
@@ -204,66 +207,59 @@ public class MainMenu {
 	private void productSelect() { // 상품관리-상세조회
 		System.out.println("조회할 키워드>> ");
 		String str = sc.nextLine();
-		if (ps.productSelect(str) != null) {
+		if (!ps.productSelect(str).isEmpty()) {
 			System.out.println("리스트를 불러옵니다..");
+			System.out.printf("%-4s %-7s %6s %4s %4s\n", "번호", "상품명", "가격", "위치", "재고");
 			for (int i = 0; i < ps.productSelect(str).size(); i++) {
-				System.out.println(ps.productSelect(str).get(i).toString());
+				ps.productSelect(str).get(i).string();
 			}
 			System.out.println("조회완료!");
 		}
 	}
 
-	public int historyManager() throws ParseException { // 거래내역 관리
+	public int historyManager() throws ParseException { // 입출관리
 		boolean b = false;
 		int key = 0;
 		do {
-				historyTitle();
-				key = Integer.parseInt(sc.nextLine());
-				switch (key) {
-				case 1:
-					if (historyInsert("구매")) {
-						System.out.println("구매등록!");
-					} else {
-						System.out.println("구매실패!");
-					}
-					break;
-				case 2:
-					if (historyInsert("판매")) {
-						System.out.println("구매등록!");
-					} else {
-						System.out.println("구매실패!");
-					}
-					break;
-				case 3:
-					if (historyInsert("폐기")) {
-						System.out.println("구매등록!");
-					} else {
-						System.out.println("구매실패!");
-					}
-					break;
-				case 4:
-					historySelectList();
-					break;
-				case 5:
-					historySelect();
-					break;
-				case 6:
-					if (historyDelete()) {
-						System.out.println("삭제성공!");
-					} else {
-						System.out.println("삭제실패!");
-					}
-					break;
-				case 7:
-					b = true;
-					break;
-				case 8:
-					b = true;
-					return 0;
-				default:
-					System.out.println("잘못된 입력.");
+			historyTitle();
+			key = Integer.parseInt(sc.nextLine());
+			if (key == 1) {
+				if (historyInsert("구매")) {
+					System.out.println("구매완료!");
+				} else {
+					System.out.println("구매실패!");
 				}
-			
+			} else if (key == 2) {
+				if (historyInsert("판매")) {
+					System.out.println("판매완료!");
+				} else {
+					System.out.println("판매실패!");
+				}
+			} else if (key == 3) {
+				if (historyInsert("폐기")) {
+					System.out.println("폐기완료!");
+				} else {
+					System.out.println("폐기실패!");
+				}
+			} else if (key == 4) {
+				historySelectList();
+			} else if (key == 5) {
+				historySelect();
+			} else if (key == 6) {
+				if (historyDelete()) {
+					System.out.println("삭제성공!");
+				} else {
+					System.out.println("삭제실패!");
+				}
+			} else if (key == 7) {
+				b = true;
+			} else if (key == 8) {
+				b = true;
+				return 0;
+			} else {
+				System.out.println("잘못된 입력.");
+			}
+
 		} while (!b);
 		if (key != 7) {
 			sc.close();
@@ -272,89 +268,195 @@ public class MainMenu {
 	}
 
 	private int gethistoryNo() { // 입출번호 지정하기
-		int n = 1;
+		int n = 0;
 		for (int i = 0; i < hs.historySelectList().size(); i++) {
-			if (hs.historySelectList().get(i) != null) {
-				n++;
+			if (hs.historySelectList() != null && hs.historySelectList().get(i).getProductNo() > n) {
+				n = hs.historySelectList().get(i).getProductNo();
 			} else {
 				break;
 			}
 		}
-		return n;
+		return n + 1;
 	}
 
 	private boolean historyInsert(String type) throws ParseException { // 입출관리-구매,판매,폐기
-		System.out.println("상품구매>> ");
-		System.out.println("상품번호, 거래가격, 거래량, 날짜>> ");
-		String[] str = sc.nextLine().split(", ");
-		int no = gethistoryNo();
-		String name = "";
-		int price = 0;
-		int cost = Integer.parseInt(str[1]) * Integer.parseInt(str[2]);
-		Date date = formatter.parse(str[3]);
-
-		for (int i = 0; i < ps.productSelectList().size(); i++) {
-			int amount = ps.productSelectList().get(i).getProductAmount();
-			if (ps.productSelectList().get(i).getProductNo() == Integer.parseInt(str[0])) {
-				name = ps.productSelectList().get(i).getProductName();
-				price = ps.productSelectList().get(i).getProductPrice();
-				if (type.equals("구매")) {
-					amount += Integer.parseInt(str[2]);
-				} else if (type.equals("판매") || type.equals("폐기")) {
-					amount -= Integer.parseInt(str[2]);
-				} else {
-					return false;
-				}
-				break;
-			}
-		}
-
-		HistoryVO vo = new HistoryVO();
-		vo.setHistoryNo(no);
-		vo.setHistoryType(type);
-		vo.setProductNo(Integer.parseInt(str[0]));
-		vo.setProductName(name);
-		vo.setProductPrice(price);
-		vo.setHistorySellPrice(Integer.parseInt(str[1]));
-		vo.setHistoryAmount(Integer.parseInt(str[2]));
+		// 구매와 판매 메소드
 		if (type.equals("구매") || type.equals("판매")) {
+			if (type.equals("구매")) {
+				System.out.println("상품구매>> ");
+			} else if (type.equals("판매")) {
+				System.out.println("상품판매>> ");
+			}
+			System.out.println("상품번호, 거래가격, 거래량, 날짜>> ");
+			String[] str = sc.nextLine().split(", ");
+
+			int no = gethistoryNo();
+			String name = "";
+			int price = 0;
+			int amount = 0;
+			int cost = Integer.parseInt(str[1]) * Integer.parseInt(str[2]);
+			Date date = sqlDate.valueOf(str[3]);
+
+			for (int i = 0; i < ps.productSelectList().size(); i++) {
+				if (ps.productSelectList().get(i).getProductNo() == Integer.parseInt(str[0])) {
+					name = ps.productSelectList().get(i).getProductName();
+					price = ps.productSelectList().get(i).getProductPrice();
+					amount = ps.productSelectList().get(i).getProductAmount();
+					if (type.equals("구매")) {
+						amount += Integer.parseInt(str[2]);
+					} else if (type.equals("판매")) {
+						amount -= Integer.parseInt(str[2]);
+					}
+					break;
+				}
+			}
+
+			HistoryVO vo = new HistoryVO();
+			vo.setHistoryNo(no);
+			vo.setHistoryType(type);
+			vo.setProductNo(Integer.parseInt(str[0]));
+			vo.setProductName(name);
+			vo.setProductPrice(price);
+			vo.setHistoryPrice(Integer.parseInt(str[1]));
+			vo.setHistoryAmount(Integer.parseInt(str[2]));
 			vo.setHistoryCost(cost);
+			vo.setHistoryDate(sqlDate.valueOf(str[3]));
+			hs.historyInsert(vo);
+
+			ProductVO pvo = new ProductVO();
+			pvo.setProductName(name);
+			pvo.setProductAmount(amount);
+			ps.productUpdate(pvo);
+			System.out.println();
+
+//			ProductVO vo = new ProductVO();
+//			vo.setProductNo(Integer.parseInt(str[0]));
+//			vo.setProductName(str[1]);
+//			vo.setProductPrice(Integer.parseInt(str[2]));
+//			vo.setProductLocation(str[3]);
+//			ps.productUpdate(vo);
+
+			return true;
+
+			// 폐기 메소드.
 		} else if (type.equals("폐기")) {
-			vo.setHistoryCost(price * Integer.parseInt(str[2]));
+			System.out.println("상품폐기>> ");
+			System.out.println("상품번호, 폐기량, 날짜>> ");
+			String[] str = sc.nextLine().split(", ");
+
+			int no = gethistoryNo();
+			String name = "";
+			int price = 0;
+			int cost = 0;
+			int amount = 0;
+			Date date = sqlDate.valueOf(str[2]);
+
+			for (int i = 0; i < ps.productSelectList().size(); i++) {
+				if (ps.productSelectList().get(i).getProductNo() == Integer.parseInt(str[0])) {
+					name = ps.productSelectList().get(i).getProductName();
+					price = ps.productSelectList().get(i).getProductPrice();
+					amount = ps.productSelectList().get(i).getProductAmount();
+					amount -= Integer.parseInt(str[1]);
+					break;
+				}
+			}
+
+			HistoryVO vo = new HistoryVO();
+			vo.setHistoryNo(no);
+			vo.setHistoryType(type);
+			vo.setProductNo(Integer.parseInt(str[0]));
+			vo.setProductName(name);
+			vo.setProductPrice(price);
+			vo.setHistoryPrice(0);
+			vo.setHistoryAmount(Integer.parseInt(str[1]));
+			vo.setHistoryCost(price * Integer.parseInt(str[1]));
+			vo.setHistoryDate(sqlDate.valueOf(str[2]));
+			hs.historyInsert(vo);
+
+			ProductVO pvo = new ProductVO();
+			pvo.setProductAmount(amount);
+			ps.productUpdate(pvo);
+			return true;
+
+		} else {
+			return false;
 		}
-//		vo.setHistoryDate((java.sql.Date) formatter.parse(str[3]));
-		vo.setHistoryDate(formatter.parse(str[3]));
-		hs.historyInsert(vo);
-		return true;
 	}
 
 	private void historySelectList() { // 입출관리-전체조회
-		if (hs.historySelectList() != null) {
+		if (!hs.historySelectList().isEmpty()) {
 			System.out.println("리스트를 불러옵니다..");
+			System.out.printf("%-3s %2s %-4s %-8s %4s %4s %3s %6s %6s\n", "번호", "타입", "상품번호", "상품명", "가격", "거래가격",
+					"거래량", "거래비용", "날짜");
+
+			int sum = 0;
+			int cost = 0;
 			for (int i = 0; i < hs.historySelectList().size(); i++) {
-				System.out.println(hs.historySelectList().get(i).toString());
+				String type = hs.historySelectList().get(i).getHistoryType();
+				cost = hs.historySelectList().get(i).getHistoryCost();
+				hs.historySelectList().get(i).string();
+				if (type.equals("구매")) {
+					sum -= cost;
+				} else if (type.equals("판매")) {
+					sum += cost;
+				} else if (type.equals("폐기")) {
+					sum -= cost;
+				}
 			}
+			System.out.println("정산비용: " + dFormatter.format(sum));
 			System.out.println("조회완료!");
+		}else {
+			System.out.println("빈 목록.");
 		}
 	}
 
 	private void historySelect() { // 입출관리-상세조회
 		System.out.println("조회할 키워드>> ");
 		String str = sc.nextLine();
-		if (hs.historySelect(str) != null) {
+		if (!hs.historySelect(str).isEmpty()) {
 			System.out.println("리스트를 불러옵니다..");
+			System.out.printf("%-3s %2s %-4s %-8s %4s %4s %3s %6s %6s\n", "번호", "타입", "상품번호", "상품명", "가격", "거래가격",
+					"거래량", "거래비용", "날짜");
+
+			int sum = 0;
+			int cost = 0;
 			for (int i = 0; i < hs.historySelect(str).size(); i++) {
-				System.out.println(hs.historySelect(str).get(i).toString());
+				String type = hs.historySelectList().get(i).getHistoryType();
+				cost = hs.historySelectList().get(i).getHistoryCost();
+				hs.historySelect(str).get(i).string();
+				if (type.equals("구매")) {
+					sum -= cost;
+				} else if (type.equals("판매")) {
+					sum += cost;
+				} else if (type.equals("폐기")) {
+					sum -= cost;
+				}
 			}
+			System.out.println("정산비용: " + dFormatter.format(sum));
 			System.out.println("조회완료!");
+		}else {
+			System.out.println("빈 목록.");
 		}
 	}
 
 	private boolean historyDelete() { // 입출관리-삭제
-		System.out.println("내역삭제>> ");
-		System.out.println("삭제할 내역의 번호> ");
-		int no = sc.nextInt();
-		hs.historyDelete(no);
+		if (hs.historySelectList() != null) {
+			System.out.println("내역삭제>> ");
+			System.out.println("삭제할 내역의 번호> ");
+			int no = sc.nextInt();
+			for(int i = 0; i < hs.historySelectList().size(); i++) {
+				if(no == hs.historySelectList().get(i).getHistoryNo()) {
+					hs.historyDelete(no);
+					break;
+				}else {
+					System.out.println("없는 번호.");
+					return false;
+				}
+			}
+		} else {
+			System.out.println("빈 목록입니다.");
+			return false;
+		}
 		return true;
 	}
 } // end of main.

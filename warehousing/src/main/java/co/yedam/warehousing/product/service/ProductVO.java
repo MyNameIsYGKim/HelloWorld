@@ -1,9 +1,13 @@
 package co.yedam.warehousing.product.service;
 
+import java.text.DecimalFormat;
+
 import lombok.Data;
 
 @Data
 public class ProductVO {
+	DecimalFormat dFormatter = new DecimalFormat("###,###,###");
+	
 	private int productNo;
 	private String productName;
 	private int productPrice;
@@ -17,7 +21,8 @@ public class ProductVO {
 //	}
 	
 	public void string() {
-		System.out.printf("%-4d %-10s %6d %4s %4d\n", productNo, 
-				productName, productPrice, productLocation, productAmount);
+		System.out.printf("%-4d %-10s %6s %4s %4d\n", productNo, 
+				productName, dFormatter.format(productPrice),
+				productLocation, productAmount);
 	}
 }
