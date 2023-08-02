@@ -1,0 +1,50 @@
+package co.yedam.smallproject.board.serviceImpl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import co.yedam.smallproject.board.service.BoardService;
+import co.yedam.smallproject.board.service.BoardVO;
+import co.yedam.smallproject.common.DataSource;
+
+public class BoardServiceImpl implements BoardService {
+	private DataSource dao = DataSource.getInstance();
+	private Connection connection;
+	private PreparedStatement preparedStatement;
+	private ResultSet resultSet;
+	
+	@Override
+	public List<BoardVO> boardSelectList() {
+		String sql = "SELECT * FROM BOARD";
+		List<BoardVO> boards = new ArrayList();
+		return null;
+	}
+
+	@Override
+	public BoardVO boardSelect(BoardVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int boardInsert(BoardVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int boardDelete(BoardVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int boardUpdate(BoardVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

@@ -1,0 +1,14 @@
+package co.micol.miniproject.member.service;
+
+import lombok.Data;
+
+@Data
+public class MemberVO {
+	private String memberId;
+	private String memberPassword;
+	private String memberName;
+	private int memberAge;
+	private String memberGender;
+	private String memberTell;
+	private String memberAddress;
+}

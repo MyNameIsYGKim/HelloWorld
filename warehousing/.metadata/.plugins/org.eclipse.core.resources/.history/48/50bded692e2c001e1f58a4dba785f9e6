@@ -1,0 +1,16 @@
+package co.micol.miniproject.db;
+
+public class DataSource { // 싱글톤 패턴
+	private static DataSource dataSource;
+	private String driver = "";
+	private String url;
+	private String user = "micol";
+	private String password = "1234'";
+	
+	private DataSource() {}
+	
+	public static DataSource getInstance() {
+		dataSource = new DataSource();
+		return dataSource;
+	}
+}

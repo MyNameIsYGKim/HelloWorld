@@ -1,0 +1,8 @@
+package co.yedam.smallproject.board.service;
+
+import lombok.Data;
+
+@Data
+public class BoardVO {
+	
+}

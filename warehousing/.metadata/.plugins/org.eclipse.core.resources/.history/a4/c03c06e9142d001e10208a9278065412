@@ -1,0 +1,36 @@
+package co.yedam.warehousing.product.serviceImpl;
+
+import java.util.List;
+
+import co.yedam.warehousing.common.DataSource;
+import co.yedam.warehousing.product.service.ProductService;
+import co.yedam.warehousing.product.service.ProductVO;
+
+public class ProductServiceImpl implements ProductService {
+	private DataSource dao = DataSource.getInstance();
+
+	@Override
+	public int productInsert(ProductVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int productUpdate(ProductVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int productDelete(ProductVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<ProductVO> productSelectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

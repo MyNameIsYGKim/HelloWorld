@@ -1,0 +1,111 @@
+package co.yedam.warehousing.product.serviceImpl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import co.yedam.warehousing.common.DataSource;
+import co.yedam.warehousing.product.service.ProductService;
+import co.yedam.warehousing.product.service.ProductVO;
+
+public class ProductServiceImpl implements ProductService {
+	private DataSource dao = DataSource.getInstance();
+	private Connection conn;
+	private PreparedStatement psmt;
+	private ResultSet rs;
+
+	@Override
+	public int productInsert(ProductVO vo) {
+		int n = 0;
+		String sql = "INSERT INTO PRODUCT VALUES(?,?,?,?,?)";
+		try {
+			conn = dao.getConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, vo.getProductNo());
+			psmt.setString(2, vo.getProductName());
+			psmt.setInt(3, vo.getProductPrice());
+			psmt.setString(4, vo.getProductLocation());
+			psmt.setInt(5, vo.getProductAmount());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	@Override
+	public int productUpdate(ProductVO vo) {
+		int n = 0;
+		String sql = "UPDATE PRODUCT SET PRODUCT_PRICE = ?, " + "PRODUCT_LOCATION = ? WHERE PRODUCT_NO = ?";
+		try {
+			conn = dao.getConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(3, vo.getProductNo());
+			psmt.setInt(1, vo.getProductPrice());
+			psmt.setString(2, vo.getProductLocation());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return n;
+	}
+
+	@Override
+	public int productDelete(ProductVO vo) {
+		int n = 0;
+		String sql = "DELETE FROM PRODUCT WHERE PRODUCT_NO = ?";
+		try {
+			conn = dao.getConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, vo.getProductNo());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return 0;
+	}
+
+	@Override
+	public List<ProductVO> productSelectList() {
+		String sql = "SELECT * FROM PRODUCT";
+		List<ProductVO> products = new ArrayList<>();
+		ProductVO vo;
+		try {
+			conn = dao.getConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				vo = new ProductVO();
+				vo.setProductNo(rs.getInt("product_no"));
+				vo.setProductName(rs.getString("product_name"));
+				vo.setProductPrice(rs.getInt("product_price"));
+				vo.setProductLocation(rs.getString("product_location"));
+				vo.setProductAmount(rs.getInt("product_amount"));
+			}
+		}
+		return null;
+	}
+
+	private void close() {
+		try {
+			if (rs != null)
+				rs.close();
+			if (psmt != null)
+				psmt.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

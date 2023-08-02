@@ -1,0 +1,24 @@
+package co.yedam.warehousing.product.service;
+
+import lombok.Data;
+
+@Data
+public class ProductVO {
+	private int productNo;
+	private String productName;
+	private int productPrice;
+	private String productLocation;
+	private int productAmount = 0;
+	
+//	@Override
+//	public String toString() {
+//		return productNo + " " + productName + " " + productPrice 
+//				+ " " + productLocation + " " + productAmount;
+//	}
+	
+	@Override
+	public void toString() {
+		System.out.printf("%-3d, %-10s, %7d, %s, %5d", productNo, 
+				productName, productPrice, productLocation, productAmount);
+	}
+}

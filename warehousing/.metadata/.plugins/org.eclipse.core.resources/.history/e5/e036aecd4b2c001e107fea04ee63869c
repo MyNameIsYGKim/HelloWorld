@@ -1,0 +1,27 @@
+package co.micol.miniproject.menu;
+
+import java.util.List;
+import java.util.Scanner;
+
+import co.micol.miniproject.member.service.MemberService;
+import co.micol.miniproject.member.service.MemberVO;
+import co.micol.miniproject.member.serviceImpl.MemberServiceImpl;
+
+public class MainMenu {
+	private Scanner sc = new Scanner(System.in);
+	private MemberService ms = new MemberServiceImpl(); // DB
+	
+	private void mainTitle() {
+		System.out.println("==== 회원관리 ====");
+		System.out.println("= 1.전체회원 조회 =");
+		System.out.println("= 2.한명회원 조회 =");
+		System.out.println("= 3.회원정보 등록 =");
+		System.out.println("= 4.회원정보 수정 =");
+		System.out.println("= 5.회원정보 삭제 =");
+		System.out.println("= 6.회원관리 종료 =");
+	}
+	
+	private void memberSelectList() {
+		List<MemberVO> members = ms.memberSelectList();
+	}
+}

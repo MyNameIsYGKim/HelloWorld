@@ -1,0 +1,5 @@
+package co.yedam.warehousing.common;
+
+public class DataSource {
+	private static DataSource datasource = new DataSource();
+}

@@ -1,0 +1,15 @@
+package co.yedam.smallproject.common;
+
+public class DataSource {
+	private static DataSource dataSource = new DataSource();
+	private String driver;
+	private String url;
+	private String user;
+	private String password;
+	
+	private DataSource() {}
+	
+	public static DataSource getInstance() {
+		return dataSource;
+	}
+}

@@ -1,0 +1,11 @@
+package co.micol.miniproject.db;
+
+public class DataSource { // 싱글톤 패턴
+	private static DataSource dataSource;
+	private DataSource() {}
+	
+	public static DataSource getInstance() {
+		dataSource = new DataSource();
+		return dataSource;
+	}
+}

@@ -61,40 +61,39 @@ public class MainMenu {
 		System.out.println("│    8.종료    │");
 		System.out.println("└─────────────┘");
 	}
-
-	public void run() throws Exception { // 전체
+	
+	public void run() throws ParseException { // 전체
 		boolean b = false;
 
 		do {
 			try {
 				mainTitle();
 				int key = Integer.parseInt(sc.nextLine());
-				switch (key) {
-				case 1:
+				if (key == 1) {
 					if (productManager() == 0) { // 상품관리
-						System.out.println("종료합니다");
-						b = true;
-						break;
-					} else {
-						break;
-					}
-				case 2:
-					if (historyManager() == 0) { // 거래내역 관리
+						System.out.println("종료합니다.");
 						b = true;
 					} else {
-						break;
+						continue;
 					}
-				case 3:
+				} else if (key == 2) {
+					if (historyManager() == 0) { // 입출관리
+						System.out.println("종료합니다.");
+						b = true;
+					} else {
+						continue;
+					}
+				} else if (key == 3) {
 					System.out.println("종료합니다.");
 					b = true;
 					break;
-				default:
+				} else {
 					System.out.println("잘못된 입력.");
 				}
 			} catch (NumberFormatException e) {
-				System.out.println("잘못된 입력. 처음으로..");
+				System.out.println("잘못된 입력.");
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("값이 부족합니다. 처음으로..");
+				System.out.println("값이 부족합니다.");
 			}
 		} while (!b);
 		sc.close();
@@ -104,41 +103,46 @@ public class MainMenu {
 		boolean b = false;
 		int key = 0;
 		do {
-			productTitle();
-			key = Integer.parseInt(sc.nextLine());
-			if (key == 1) {
-				if (productInsert()) {
-					System.out.println("등록성공!");
+			try {
+				productTitle();
+				key = Integer.parseInt(sc.nextLine());
+				if (key == 1) {
+					if (productInsert()) {
+						System.out.println("등록성공!");
+					} else {
+						System.out.println("등록실패!");
+					}
+				} else if (key == 2) {
+					if (productUpdate()) {
+						System.out.println("수정성공!");
+					} else {
+						System.out.println("수정실패!");
+					}
+				} else if (key == 3) {
+					if (productDelete()) {
+						System.out.println("삭제성공!");
+					} else {
+						System.out.println("삭제실패!");
+					}
+				} else if (key == 4) {
+					productSelectList();
+				} else if (key == 5) {
+					productSelect();
+				} else if (key == 6) {
+					b = true;
+				} else if (key == 7) {
+					b = true;
+					return 0;
 				} else {
-					System.out.println("등록실패!");
+					System.out.println("잘못된 입력.");
 				}
-			} else if (key == 2) {
-				if (productUpdate()) {
-					System.out.println("수정성공!");
-				} else {
-					System.out.println("수정실패!");
-				}
-			} else if (key == 3) {
-				if (productDelete()) {
-					System.out.println("삭제성공!");
-				} else {
-					System.out.println("삭제실패!");
-				}
-			} else if (key == 4) {
-				productSelectList();
-			} else if (key == 5) {
-				productSelect();
-			} else if (key == 6) {
-				b = true;
-			} else if (key == 7) {
-				b = true;
-				return 0;
-			} else {
+			} catch (NumberFormatException e) {
 				System.out.println("잘못된 입력.");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("값이 부족합니다.");
 			}
-
 		} while (!b);
-		if (key != 6) {
+		if (key == 7) {
 			sc.close();
 		}
 		return 1;
@@ -199,13 +203,16 @@ public class MainMenu {
 		if (!ps.productSelectList().isEmpty()) {
 			System.out.println("상품삭제>> ");
 			System.out.println("삭제할 상품의 번호> ");
-			int no = sc.nextInt();
+			int no = Integer.parseInt(sc.nextLine());
 			for (int i = 0; i < ps.productSelectList().size(); i++) {
 				if (ps.productSelectList().get(i).getProductNo() == no) {
 					ps.productDelete(no);
 					return true;
 				}
 			}
+			System.out.println("없는 번호입니다.");
+		} else {
+			System.out.println("빈 목록입니다.");
 		}
 		return false;
 	}
@@ -238,47 +245,52 @@ public class MainMenu {
 		boolean b = false;
 		int key = 0;
 		do {
-			historyTitle();
-			key = Integer.parseInt(sc.nextLine());
-			if (key == 1) {
-				if (historyInsert("구매")) {
-					System.out.println("구매완료!");
+			try {
+				historyTitle();
+				key = Integer.parseInt(sc.nextLine());
+				if (key == 1) {
+					if (historyInsert("구매")) {
+						System.out.println("구매완료!");
+					} else {
+						System.out.println("구매실패!");
+					}
+				} else if (key == 2) {
+					if (historyInsert("판매")) {
+						System.out.println("판매완료!");
+					} else {
+						System.out.println("판매실패!");
+					}
+				} else if (key == 3) {
+					if (historyInsert("폐기")) {
+						System.out.println("폐기완료!");
+					} else {
+						System.out.println("폐기실패!");
+					}
+				} else if (key == 4) {
+					historySelectList();
+				} else if (key == 5) {
+					historySelect();
+				} else if (key == 6) {
+					if (historyDelete()) {
+						System.out.println("삭제성공!");
+					} else {
+						System.out.println("삭제실패!");
+					}
+				} else if (key == 7) { // 뒤로
+					b = true;
+				} else if (key == 8) { // 종료
+					b = true;
+					return 0;
 				} else {
-					System.out.println("구매실패!");
+					System.out.println("잘못된 입력.");
 				}
-			} else if (key == 2) {
-				if (historyInsert("판매")) {
-					System.out.println("판매완료!");
-				} else {
-					System.out.println("판매실패!");
-				}
-			} else if (key == 3) {
-				if (historyInsert("폐기")) {
-					System.out.println("폐기완료!");
-				} else {
-					System.out.println("폐기실패!");
-				}
-			} else if (key == 4) {
-				historySelectList();
-			} else if (key == 5) {
-				historySelect();
-			} else if (key == 6) {
-				if (historyDelete()) {
-					System.out.println("삭제성공!");
-				} else {
-					System.out.println("삭제실패!");
-				}
-			} else if (key == 7) {
-				b = true;
-			} else if (key == 8) {
-				b = true;
-				return 0;
-			} else {
+			} catch (NumberFormatException e) {
 				System.out.println("잘못된 입력.");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("값이 부족합니다.");
 			}
-
 		} while (!b);
-		if (key != 7) {
+		if (key == 8) {
 			sc.close();
 		}
 		return 1;
@@ -306,7 +318,7 @@ public class MainMenu {
 			}
 			System.out.println("상품번호, 거래가격, 거래량, 날짜(yyyy-mm-dd)>> ");
 			String[] str = sc.nextLine().split(", ");
-
+			
 			// 판매량이 재고보다 많으면.
 			for (int j = 0; j < ps.productSelectList().size(); j++) {
 				ProductVO thatJ = ps.productSelectList().get(j);
@@ -329,7 +341,8 @@ public class MainMenu {
 				System.out.println("날짜형식 오류.");
 				return false;
 			}
-
+			
+			// 재고 메소드.
 			for (int i = 0; i < ps.productSelectList().size(); i++) {
 				ProductVO that = ps.productSelectList().get(i);
 				if (ps.productSelectList().get(i).getProductNo() == Integer.parseInt(str[0])) {
@@ -363,7 +376,6 @@ public class MainMenu {
 			pvo.setProductAmount(amount);
 			pvo.setProductNo(pno);
 			ps.productUpdate(pvo);
-			return true;
 
 			// 폐기 메소드.
 		} else if (type.equals("폐기")) {
@@ -395,6 +407,7 @@ public class MainMenu {
 				return false;
 			}
 
+			// 재고 메소드.
 			for (int i = 0; i < ps.productSelectList().size(); i++) {
 				ProductVO thatI = ps.productSelectList().get(i);
 				if (ps.productSelectList().get(i).getProductNo() == Integer.parseInt(str[0])) {
@@ -406,6 +419,7 @@ public class MainMenu {
 					break;
 				}
 			}
+			
 			// 폐기할 재고의 손실액은 마지막으로 구매한 물품의 가격으로 산정.
 			for (int i = 0; i < hs.historySelectList().size(); i++) {
 				HistoryVO that = hs.historySelectList().get(i);
@@ -425,18 +439,16 @@ public class MainMenu {
 			vo.setHistoryDate(sqlDate.valueOf(str[2]));
 			hs.historyInsert(vo);
 
-			ProductVO pvo = new ProductVO();
+			ProductVO pvo = new ProductVO(); // 재고량 적용.
 			pvo.setProductName(name);
 			pvo.setProductLocation(location);
 			pvo.setProductAmount(amount);
 			pvo.setProductNo(pno);
 			ps.productUpdate(pvo);
-
-			return true;
-
 		} else {
 			return false;
 		}
+		return true;
 	}
 
 	private void historySelectList() { // 입출관리-전체조회
@@ -500,17 +512,19 @@ public class MainMenu {
 		if (!hs.historySelectList().isEmpty()) {
 			System.out.println("내역삭제>> ");
 			System.out.println("삭제할 내역의 번호> ");
-			int no = sc.nextInt();
+			int no = Integer.parseInt(sc.nextLine());
 			for (int i = 0; i < hs.historySelectList().size(); i++) {
 				if (no == hs.historySelectList().get(i).getHistoryNo()) {
 					hs.historyDelete(no);
 					return true;
 				}
 			}
-			return false;
+			System.out.println("없는 번호입니다.");
 		} else {
 			System.out.println("빈 목록입니다.");
-			return false;
 		}
+		return false;
 	}
+	
+	
 } // end of main.

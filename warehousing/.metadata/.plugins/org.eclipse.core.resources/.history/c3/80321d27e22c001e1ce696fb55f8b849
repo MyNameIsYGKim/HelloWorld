@@ -1,0 +1,5 @@
+package co.yedam.smallproject.service;
+
+public class BoardVO {
+
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=smallproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;co.yedam.smallproject.board.service{BoardService.java[BoardService" modifiers="513" timestamp="1690506580415"/>
+    <typeInfo handle="=warehousing/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;co.yedam.warehousing.product.service{ProductService.java[ProductService" modifiers="513" timestamp="1690762059356"/>
+    <typeInfo handle="=warehousing/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;co.yedam.warehousing.history.service{HistoryService.java[HistoryService" modifiers="513" timestamp="1690773936684"/>
+</typeInfoHistroy>

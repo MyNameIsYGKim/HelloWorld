@@ -1,0 +1,20 @@
+package co.yedam.smallproject;
+
+import java.util.List;
+
+import co.yedam.smallproject.board.service.BoardService;
+import co.yedam.smallproject.board.service.BoardVO;
+import co.yedam.smallproject.board.serviceImpl.BoardServiceImpl;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        BoardService bs = new BoardServiceImpl();
+        List<BoardVO> boards = bs.boardSelectList();
+        
+        for(BoardVO board : boards) {
+        	board.toString();
+        }
+    }
+}

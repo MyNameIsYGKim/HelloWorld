@@ -1,0 +1,15 @@
+package co.micol.miniproject;
+
+import co.micol.miniproject.db.DataSource;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	System.out.println("Start App ======");
+        DataSource dao = DataSource.getInstance();
+        dao.getConnection();
+        System.out.println("Stop App ======");
+    }
+}
+

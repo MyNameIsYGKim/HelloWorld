@@ -1,0 +1,30 @@
+package co.yedam.warehousing.common;
+
+import java.io.InputStream;
+import java.sql.Connection;
+import java.util.Properties;
+
+public class DataSource {
+	private static DataSource datasource = new DataSource();
+	private String driver;
+	private String url;
+	private String user;
+	private String password;
+	private Connection conn;
+	
+	private void getProperties() {
+		String resource = "/database.properties";
+		Properties properties = new Properties();
+		
+		InputStream inputStream = getClass().getResourceAsStream(resource);
+		try {
+			properties.load(inputStream);
+			driver = properties.getProperty("driver");
+			url = properties.getProperty("url");
+			user = properties.getProperty("user");
+			password = properties.getProperty("password");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

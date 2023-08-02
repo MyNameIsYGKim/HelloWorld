@@ -1,0 +1,13 @@
+package co.micol.miniproject;
+
+import co.micol.miniproject.db.DataSource;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        DataSource dao = DataSource.getInstance();
+        dao.getConnection();
+    }
+}
+

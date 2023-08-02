@@ -1,0 +1,15 @@
+package co.yedam.warehousing.history.service;
+
+import java.sql.Date;
+
+public class historyVO {
+	private int historyNo;
+	private String historyType;
+	private int productNo;
+	private String productName;
+	private int productPrice;
+	private int productSellPrice;
+	private int historyAmount;
+	private int historyCost;
+	private Date historyDate;
+}

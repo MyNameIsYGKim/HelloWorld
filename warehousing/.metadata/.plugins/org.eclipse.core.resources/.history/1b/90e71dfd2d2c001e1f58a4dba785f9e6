@@ -1,0 +1,11 @@
+package co.micol.miniproject.db;
+
+public class DataSource {
+	private static DataSource dataSource;
+	private DataSource() {}
+	
+	public static DataSource getInstance() {
+		DataSource dataSource = new DataSource();
+		return dataSource;
+	}
+}

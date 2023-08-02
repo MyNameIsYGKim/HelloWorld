@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;co.yedam.ForConditionExe&apos; to &apos;ForLoopExe&apos;&#x0D;&#x0A;- Original project: &apos;H20230714&apos;&#x0D;&#x0A;- Original element: &apos;co.yedam.ForConditionExe&apos;&#x0D;&#x0A;- Renamed element: &apos;co.yedam.ForLoopExe&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ForConditionExe&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;co.yedam{ForConditionExe.java[ForConditionExe" matchStrategy="1" name="ForLoopExe" qualified="false" references="true" similarDeclarations="false" stamp="1689300368555" textual="false" version="1.0"/>
+</session>

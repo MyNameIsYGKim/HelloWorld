@@ -1,0 +1,8 @@
+package co.yedam.warehousing.product.service;
+
+public interface ProductService {
+	int productInsert(ProductVO vo);
+	int productUpdate(ProductVO vo);
+	int productDelete(ProductVO vo);
+	List<ProductVO> productSelectList();
+}

@@ -1,0 +1,25 @@
+package co.micol.miniproject.member.service;
+
+import lombok.Data;
+
+@Data
+public class MemberVO {
+	private String memberId;
+	private String memberPassword;
+	private String memberName;
+	private int memberAge;
+	private String memberGender;
+	private String memberTell;
+	private String memberAddress;
+	
+	@Override
+	public String toString() {
+		System.out.print(getMemberId() + " ");
+		System.out.print(getMemberName() + " ");
+		System.out.print(getMemberAge() + " ");
+		System.out.print(getMemberGender() + " ");
+		System.out.print(getMemberTell() + " ");
+		System.out.println(getMemberAddress());
+		return null;
+	}
+}

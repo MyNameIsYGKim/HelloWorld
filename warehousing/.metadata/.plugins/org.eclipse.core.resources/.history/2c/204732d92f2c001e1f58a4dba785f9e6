@@ -1,0 +1,15 @@
+package co.micol.miniproject;
+
+import co.micol.miniproject.db.DataSource;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        DataSource.getInstance();
+    }
+}

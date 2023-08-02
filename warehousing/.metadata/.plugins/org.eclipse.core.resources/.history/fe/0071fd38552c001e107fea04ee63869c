@@ -1,0 +1,5 @@
+driver = "oracle.jdbc.driver.OracleDriver";
+url = "jdbc:oracle:thin:@localhost:1521:xe"; // @\uD638\uC2A4\uD2B8\uBA85 or IP:\uD3EC\uD2B8\uBA85:sid
+user = "micol";
+password = "1234";
+	

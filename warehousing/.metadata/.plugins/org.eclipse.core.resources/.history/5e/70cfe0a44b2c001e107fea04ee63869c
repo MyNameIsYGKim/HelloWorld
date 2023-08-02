@@ -1,0 +1,17 @@
+package co.micol.miniproject.menu;
+
+import java.util.Scanner;
+
+public class MainMenu {
+	private Scanner sc = new Scanner(System.in);
+	
+	private void mainTitle() {
+		System.out.println("==== 회원관리 ====");
+		System.out.println("= 1.전체회원 조회 =");
+		System.out.println("= 2.한명회원 조회 =");
+		System.out.println("= 3.회원정보 등록 =");
+		System.out.println("= 4.회원정보 수정 =");
+		System.out.println("= 5.회원정보 삭제 =");
+		System.out.println("= 6.회원관리 종료 =");
+	}
+}

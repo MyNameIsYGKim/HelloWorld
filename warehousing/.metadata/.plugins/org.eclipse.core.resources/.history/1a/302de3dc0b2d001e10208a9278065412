@@ -1,0 +1,19 @@
+package co.yedam.warehousing.product.service;
+
+import lombok.Data;
+
+@Data
+public class productVO {
+	private int productNo;
+	private String productName;
+	private int productPrice;
+	private int productAmount;
+	
+	public String toString() {
+		System.out.print(productNo + " ");
+		System.out.print(productName + " ");
+		System.out.print(productPrice + " ");
+		System.out.println(productAmount);
+		return null;
+	}
+}

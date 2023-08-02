@@ -1,0 +1,10 @@
+package co.yedam.smallproject.common;
+
+public class DataSource {
+	private static DataSource dataSource;
+	private DataSource() {}
+	
+	public static DataSource getInstance() {
+		return dataSource;
+	}
+}

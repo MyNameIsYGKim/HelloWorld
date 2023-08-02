@@ -1,0 +1,5 @@
+package co.yedam.warehousing.history.service;
+
+public class historyVO {
+
+}

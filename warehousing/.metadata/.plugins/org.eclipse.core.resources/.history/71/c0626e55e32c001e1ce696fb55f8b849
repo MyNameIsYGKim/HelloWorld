@@ -1,0 +1,5 @@
+package co.yedam.smallproject.board.service;
+
+public interface BoardService {
+
+}
