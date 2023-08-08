@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.micol.lms.notice.map.NoticeMapper">
+
+	<select id="noticeSelectList"
+		resultType="co.micol.lms.notice.service.NoticeVO">
+		SELECT * FROM BOARD
+	</select>
+
+	<select id="noticeSelect"
+		parameterType="co.micol.lms.notice.service.NoticeVO"
+		resultType="co.micol.lms.notice.service.NoticeVO">
+
+		SELECT * FROM BOARD WHERE BOARD_ID = #{boardId} <!-- ${ (table명) }도 가능 -->
+	</select>
+
+	<insert id="noticeInsert"
+		parameterType="co.micol.lms.notice.service.NoticeVO">
+		INSERT INTO BOARD
+		VALUES(#{boardId}, #{boardWriter},
+		#{boardTitle}, #{boardSubject}, #{boardDate}, #{boardHit},)
+	</insert>
+	
+	<delete id="noticeDelete"
+		parameterType="co.micol.lms.notice.service.NoticeVO">
+		DELETE FROM BOARD WHERE BOARD_ID = #{boardId}
+	</delete>
+	
+	<update id="boardUpdate">
+
+	</update>
+
+</mapper>
