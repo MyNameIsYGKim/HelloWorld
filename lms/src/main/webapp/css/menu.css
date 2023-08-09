@@ -1,0 +1,29 @@
+#topMenu { 
+	height:30px;
+	width:100%;	
+	background-color:#2d2d2d; 
+}
+
+#topMenu ul li { 
+	list-style:none;
+	color:white; 
+	float:left; 
+	line-height:30px;
+	vertical-align:middle; 
+	text-align:center;	
+}
+
+#topMenu .menuLink { 
+	text-decoration:none; 
+	color:white;
+	display:block; 
+	width:150px;
+	font-size:12px;
+	font-weight:bold;
+	font-family:"Trebuchet MS", Dotum, Arial;
+}
+
+#topMenu .menuLink:hover { 
+	color:red;
+	background-color:#4d4d4d;
+}
