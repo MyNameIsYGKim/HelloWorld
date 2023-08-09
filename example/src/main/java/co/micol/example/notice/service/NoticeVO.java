@@ -12,6 +12,8 @@ public class NoticeVO {
 	private String noticeWriter;
 	private String noticeTitle;
 	private String noticeSubject;
+	
+	
 	private LocalDate noticeDate;
 	private String noticeAttech;
 	private String noticeAttechDir;

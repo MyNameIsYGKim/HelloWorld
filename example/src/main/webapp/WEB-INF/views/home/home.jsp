@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>여기가 시작페이지 입니다.</h1>
+<div>
+	<div><h1>환영합니다.</h1></div>
+	<div>
+		<img src="img/sunflower.jpg" width="1000" height="563">
+	</div>
+</div>
 </body>
 </html>

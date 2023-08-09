@@ -83,7 +83,7 @@
  				alert("사용 가능한 아이디");
  				document.getElementById("btn").disabled = true;
  				document.getElementById("btn").value = "Yes";
- 					document.getElementById("memberPassword").focus();
+ 				document.getElementById("memberPassword").focus();
  			}else{
  				alert("중복된 아이디");
  				document.getElementById("memberId").value = "";

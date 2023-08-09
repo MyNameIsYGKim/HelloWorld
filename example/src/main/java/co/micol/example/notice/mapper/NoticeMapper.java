@@ -8,9 +8,9 @@ import co.micol.example.notice.service.NoticeVO;
 
 public interface NoticeMapper {
 	List<NoticeVO> noticeSelectList();
-	List<NoticeVO> noticeSelectList(@Param("Key") String key, @Param("val") String val); // 검색
+	List<NoticeVO> noticeSelectList(@Param("key") String key, @Param("val") String val); // 검색
 	
-	List<NoticeVO> noticeSearchList(@Param("Key") String key, @Param("val") String val); // 검색
+	List<NoticeVO> noticeSearchList(@Param("key") String key, @Param("val") String val); // 검색
 	NoticeVO noticeSelect(NoticeVO vo);
 	int noticeInsert(NoticeVO vo);
 	int noticeUpdate(NoticeVO vo);

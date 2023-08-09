@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${n.noticeId } : ${n.noticeWriter } : ${n.noticeTitle }
 	<div align="center">
 		<div>
 			<h1>게시글 조회</h1>
@@ -22,7 +22,6 @@
 						<th width="400">내용</th>
 						<th width="100">날짜</th>
 						<th width="200">첨부파일명</th>
-						<th width="400">첨부파일주소</th>
 						<th width="50">조회수</th>
 					</tr>
 				</thead>
@@ -34,12 +33,34 @@
 						<td>${n.noticeSubject }</td>
 						<td align="center">${n.noticeDate }</td>
 						<td>${n.noticeAttech }</td>
-						<td>${n.noticeAttechDir }</td>
 						<td align="center">${n.noticeHit }</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+		<br>
+			<div>
+			<c:if test="${name eq n.noticeWriter }">
+				<button type="button" onclick="noticeUpdate('E')">수정</button>&nbsp;&nbsp;&nbsp;
+				<button type="button" onclick="noticeUpdate('D')">삭제</button>&nbsp;&nbsp;&nbsp;
+			</c:if>
+				<button type="button" onclick="location.href='noticelist.do'">목록</button>
+			</div>
+		<div>
+			<form id="frm" method="post">
+				<input type="hidden" id="noticeId" name="noticeId" value="${n.noticeId }">
+			</form>
+		</div>
 	</div>
+	<script type="text/javascript">
+		function noticeUpdate(str){
+			if(str == 'E'){
+				document.getElementById("frm").action="noticeeditform.do";
+			}else{
+				document.getElementById("frm").action="noticedelete.do";
+			}
+			document.getElementById("frm").submit();
+		}
+	</script>
 </body>
 </html>

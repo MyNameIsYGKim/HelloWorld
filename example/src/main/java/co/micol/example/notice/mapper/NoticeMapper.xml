@@ -3,17 +3,17 @@
 <mapper namespace="co.micol.example.notice.mapper.NoticeMapper">
 	<select id="noticeSelectList" resultType="co.micol.example.notice.service.NoticeVO">
 		SELECT * FROM NOTICE
-		<if test="Key == 'title'">WHERE NOTICE_TITEL LIKE '%'||#{val}||'%'</if>
-		<if test="Key == 'subject'">WHERE NOTICE_SUBJECT LIKE '%'||#{val}||'%'</if>
-		<if test="Key == 'writer'">WHERE NOTICE_WRITER LIKE '%'||#{val}||'%'</if>
+		<if test='key == "title"'> WHERE NOTICE_TITLE LIKE '%'||#{val}||'%'</if>
+		<if test='Key == "subject"'> WHERE NOTICE_SUBJECT LIKE '%'||#{val}||'%'</if>
+		<if test='Key == "writer"'> WHERE NOTICE_WRITER LIKE '%'||#{val}||'%'</if>
 		ORDER BY NOTICE_ID DESC
 	</select>
 
 	<select id="noticeSearchList" resultType="co.micol.example.notice.service.NoticeVO">
 		SELECT * FROM NOTICE WHERE
-		<if test="Key == 'title'">NOTICE_TITEL LIKE '%'||#{val}||'%'</if>
-		<if test="Key == 'subject'">NOTICE_SUBJECT LIKE '%'||#{val}||'%'</if>
-		<if test="Key == 'writer'">NOTICE_WRITER LIKE '%'||#{val}||'%'</if>
+		<if test='key == "title"'> NOTICE_TITLE LIKE '%'|| #{val} ||'%'</if>
+		<if test='key == "subject"'> NOTICE_SUBJECT LIKE '%'|| #{val} ||'%'</if>
+		<if test='key == "writer"'> NOTICE_WRITER LIKE '%'|| #{val} ||'%'</if>
 		ORDER BY NOTICE_ID DESC
 	</select>
 
@@ -36,13 +36,11 @@
 		UPDATE NOTICE
 		<set>
 			<!-- 한개만 있어도 무조건 콤마, 마지막거 제외 -->
-			<if test="noticeWriter != null">NOTICE_WRITER = #{noticeWriter},</if>
 			<if test="noticeTitle != null">NOTICE_TITLE = #{noticeTitle},</if>
 			<if test="noticeSubject != null">NOTICE_SUBJECT = #{noticeSubject},</if>
 			<if test="noticeDate != null">NOTICE_DATE = #{noticeDate},</if>
 			<if test="noticeAttach != null">NOTICE_ATTACH = #{noticeAttech},</if>
 			<if test="noticeAttachDir != null">NOTICE_ATTACH_DIR = #{noticeAttechDir},</if>
-			<if test="noticeHit != null">NOTICE_HIT = #{noticeHit}</if>
 		</set>
 		WHERE NOTICE_ID = #{noticeId}
 	</update>
