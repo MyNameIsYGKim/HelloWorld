@@ -17,7 +17,7 @@
 		VALUES(#{memberId}, #{memberPassword}, #{memberName}, #{memberImg}, #{memberTel}, #{memberAddress})
 	</insert>
 	
-	<update id="memberUpdate">
+	<update id="memberUpdate" parameterType="co.micol.example.member.service.MemberVO">
 		UPDATE MEMBER
 		<set>
 			<!-- 한개만 있어도 무조건 콤마, 마지막거 제외 -->

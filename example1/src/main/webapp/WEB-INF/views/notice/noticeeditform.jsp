@@ -16,9 +16,6 @@
 				enctype="multipart/form-data">
 				<div align="center">
 					<div>
-						<h1>게시글 조회</h1>
-					</div>
-					<div>
 						<table border="1">
 							<thead>
 								<tr>
@@ -58,8 +55,8 @@
 						</table>
 					</div><br>
 					<div>
-						<input type="submit" onclick=" location.href='noticeedit.do'"value="수정">&nbsp;&nbsp;&nbsp;
-						<input type="reset" value="취소">
+						<input type="submit" value="수정">&nbsp;&nbsp;&nbsp;
+						<input type="reset" onclick="location.href='noticeedit.do'" value="취소">
 					</div>
 					<input type="hidden" id="noticeId" name="noticeId" value="${n.noticeId }">
 				</div>

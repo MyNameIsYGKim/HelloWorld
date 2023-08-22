@@ -24,7 +24,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public List<NoticeVO> noticeSearchtList(String key, String val) {
+	public List<NoticeVO> noticeSearchList(String key, String val) {
 		return map.noticeSearchList(key, val);
 	}
 
@@ -53,7 +53,5 @@ public class NoticeServiceImpl implements NoticeService {
 	public void noticeupdateHit(int id) {
 		map.noticeUpdateHit(id);
 	}
-
-	
 
 }

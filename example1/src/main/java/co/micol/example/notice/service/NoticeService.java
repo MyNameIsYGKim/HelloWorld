@@ -6,7 +6,7 @@ public interface NoticeService {
 	List<NoticeVO> noticeSelectList();
 	List<NoticeVO> noticeSelectList(String key, String val); // 검색
 	
-	List<NoticeVO> noticeSearchtList(String key, String val); // 검색
+	List<NoticeVO> noticeSearchList(String key, String val); // 검색
 	NoticeVO noticeSelect(NoticeVO vo);
 	int noticeInsert(NoticeVO vo);
 	int noticeUpdate(NoticeVO vo);

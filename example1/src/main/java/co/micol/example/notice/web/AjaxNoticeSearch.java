@@ -34,8 +34,7 @@ public class AjaxNoticeSearch extends HttpServlet {
 		
 		String key = request.getParameter("key");
 		String val = request.getParameter("val");
-		notices = dao.noticeSearchtList(key, val);
-		System.out.println(key + val);
+		notices = dao.noticeSearchList(key, val);
 		
 		ObjectMapper ObjectMapper = new ObjectMapper(); // json 객체를 만들기 위해 필요한 객체.
 		
