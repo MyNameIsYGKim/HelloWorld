@@ -67,7 +67,7 @@
 			
 		</div>
 		<div>
-			<form id="noticefrm" action="noticeselect.do" method="post">
+			<form id="noticefrm" action="noticeselect2.do" method="post">
 				<input type="hidden" id="noticeId" name="noticeId">
 			</form>
 		</div>

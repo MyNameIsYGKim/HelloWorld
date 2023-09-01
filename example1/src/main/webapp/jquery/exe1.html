@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	
+<head>
+	<meta charset="UTF-8">
+	<title>exe1.html</title>
+	<script src="../js/jquery.min.js"></script>
+	<script src="./member.js"></script>
+	<script>
+		fetch('members.json')
+			.then(result => result.json())
+			.then(json => console.log(json))
+			.catch(err => console.log(err))
+	</script>
+</head>
+
+<body>
+	<div>
+		<table border="1">
+			<tr>
+				<td>번호</td>
+				<td><input id="no"></td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td><input id="name"></td>
+			</tr>
+			<tr>
+				<td>연락처</td>
+				<td><input id="phone"></td>
+			</tr>
+			<tr>
+				<td>나이</td>
+				<td><input id="age"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button id="addBtn">추가</button>
+					<button id="editBtn">수정</button>
+				</td>
+			</tr>
+		</table>
+		<h3>목록</h3>
+		<table border="1">
+			<thead>
+				<td>번호</td>
+				<td>이름</td>
+				<td>연락처</td>
+				<td>나이</td>
+				<td>삭제</td>
+			</thead>
+			<tbody id="list">
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

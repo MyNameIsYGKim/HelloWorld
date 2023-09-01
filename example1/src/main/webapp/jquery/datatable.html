@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+	rel="stylesheet" type="text/css">
+<script src="../js/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+	<table id="example" class="display" style="width: 100%">
+		<thead>
+			<tr>
+				<th>댓글번호</th>
+				<th>댓글내용</th>
+				<th>작성자</th>
+				<th>작성일자</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th>댓글번호</th>
+				<th>댓글내용</th>
+				<th>작성자</th>
+				<th>작성일자</th>
+			</tr>
+		</tfoot>
+	</table>
+	<script>
+		new DataTable('#example', {
+		    ajax: './AjaxDatatable.do',
+		    columns: [
+		    	{ data: 'replyId'},
+		    	{ data: 'reply'},
+		    	{ data: 'replyer'},
+		    	{ data: 'replyDate'}
+		    ]
+		});
+	</script>
+</body>
+</html>
