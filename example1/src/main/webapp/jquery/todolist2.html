@@ -151,7 +151,14 @@ input {
 </ul>
 
 <script>
+	// focus().
+	$('#myDIV').find('.addBtn').on('click', function(){
+		$('#myInput').val('');
+		$('#myDue').val('');
+		$('#myInput').focus();
+	})
 	
+	// X 누르면 삭제 기능.
 	$('li').each((idx, elem) => {
 		let span = $('<span />').text("\u00D7").addClass('close');
 		span.on('click', function(){
@@ -160,16 +167,18 @@ input {
 		$(elem).append(span);
 	})
 	
+	// 글 클릭 -> 체크.
 	$('#myUL').on('click', 'li', function(){
 		$(this).toggleClass('checked');
 	})
 	
+	// 글 삽입.
 	function newElement() {
 		let span = $('<span />').text("\u00D7").addClass('close');
 		span.on('click', function(){
 			span.parent().css('display', 'none')
 		})
-		$('#myUL').append($('<li />').text($('#myInput').val()).append(span));
+		$('#myUL').append($('<li />').html($('#myInput').val()+'<br>'+$('#myDue').val()).append(span));
 	}
 	
 </script>

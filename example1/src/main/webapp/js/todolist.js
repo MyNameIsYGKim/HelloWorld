@@ -4,6 +4,15 @@
 
  class Todolist {
 	 
+	 notUse() {
+		 fetch('AjaxTodolistList.do')
+		 .then(resolve => resolve.json())
+		 .then(json => {
+			 console.log(json);
+		 })
+		 .catch(console.log);
+	 }
+	 
 	 // 글 목록.
 	 todolistList(callback){
 		 $.ajax({
