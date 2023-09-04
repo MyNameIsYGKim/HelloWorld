@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.micol.example.todolist.mapper.TodolistMapper">
+	
+	<select id="list" resultType="co.micol.example.todolist.service.TodolistVO">
+		SELECT * FROM TODOLIST
+	</select>
+	
+	<insert id="insert" parameterType="co.micol.example.todolist.service.TodolistVO">
+		<selectKey resultType="int" keyProperty="todolistNo" order="BEFORE">
+			SELECT seq_todolist.nextval as todolistNo FROM dual
+		</selectKey>
+		
+		INSERT INTO TODOLIST
+		VALUES(#{todolistNo}, #{todolistContent), #{todolistDate})
+	</insert>
+	
+	<update id="update">
+		UPDATE TODOLIST
+		<set>
+			TODOLIST_CONTENT = #{todolistConetent},
+			<if test="todolistDate != null">TODOLIST_DATE = #{todolistDate}</if>
+		</set>
+		WHERE TODOLIST_NO = #{todolistNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM TODOLIST WHERE TODOLIST_NO = #{todolistNo}
+	</delete>
+</mapper>

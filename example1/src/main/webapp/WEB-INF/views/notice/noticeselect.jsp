@@ -88,8 +88,8 @@
 						<li class="left clearfix" data-rno="12" style="display: none;">
 							<div>
 								<div class="header">
-									<strong class="primary-font">user00</strong> <small
-										class="pull-right text-muted">2023-03-05 13:13</small>
+									<strong class="primary-font">user00</strong>
+									<small class="pull-right text-muted">2023-03-05 13:13</small>
 								</div>
 								<p>Good job!</p>
 							</div>
