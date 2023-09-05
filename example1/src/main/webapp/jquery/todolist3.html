@@ -143,27 +143,18 @@ input {
 </div>
 
 <ul id="myUL">
-  
+  <li class="liBox">
+	  
+  </li>
 </ul>
 
 <script>
 	var todolist = new Todolist();
-	// 글 목록.
+	
 	todolist.todolistList(function(data){
-		for(let i=0; i<data.length; i++){
-			$('#myUL').append($('<li />')).html(
-				data[i].todolistContent+'<br>'+data[i].todolistDate);
-		}
+		for
 	})
 	
-	// focus().
-	$('#myDIV').find('.addBtn').on('click', function(){
-		$('#myInput').val('');
-		$('#myDue').val('');
-		$('#myInput').focus();
-	})
-	
-	// X 누르면 삭제 기능.
 	$('li').each((idx, elem) => {
 		let span = $('<span />').text("\u00D7").addClass('close');
 		span.on('click', function(){
@@ -172,25 +163,16 @@ input {
 		$(elem).append(span);
 	})
 	
-	// 글 클릭 -> 체크.
 	$('#myUL').on('click', 'li', function(){
 		$(this).toggleClass('checked');
 	})
 	
-	// 글 삽입.
 	function newElement() {
-		var content = $('#myInput').val();
-		var date = $('#myDue').val();
-		var param = {
-			todolistConetent: content,
-			todolistDate: date
-		}
-		
-		todolist.todolistList(function(data){
-			console.log(data.data.todolistContent);
-			$('#myUL').append($('<li />')).html(
-				data.data.todolistContent+'<br>'+data.data.todolistDate);
+		let span = $('<span />').text("\u00D7").addClass('close');
+		span.on('click', function(){
+			span.parent().css('display', 'none')
 		})
+		$('#myUL').append($('<li />').text($('#myInput').val()).append(span));
 	}
 	
 </script>

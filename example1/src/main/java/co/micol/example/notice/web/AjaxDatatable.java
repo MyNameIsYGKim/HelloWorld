@@ -50,8 +50,8 @@ public class AjaxDatatable extends HttpServlet {
 		for(int i=0; i<list.size(); i++) {
 			json += "[\"" + list.get(i).getReplyId() + "\",\""
 					+ list.get(i).getReply() + "" + i + "\",\""
-					+ list.get(i).getReplyer() + "\""
-					+ ", \"" + list.get(i).getReplyDate() + "\"]";
+					+ list.get(i).getReplyer() + "\",\"" 
+					+ list.get(i).getReplyDate() + "\"]";
 			if(i != (cnt - 1)) {
 				json += ",";
 			}
