@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="sidos" id="">
+    </select>
+    <button name="delBtn">선택삭제</button>
+    <h3>센터목록</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>시도ID</th>
+                <th>센터명</th>
+                <th>연락처</th>
+                <th>주소</th>
+                <td><input type="checkbox"></td>
+            </tr>
+        </thead>
+        <tbody id="list">
+
+        </tbody>
+    </table>
+    <script>
+        let url = `https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=e1%2F68WYAGN37amlOlJpfi6ZewXy%2BDFfyq8b5JLEtBqo%2Ff1I8TosiRh9%2FzwQb8cOLbhWIdCE0wxAXrLB%2BSoUVyw%3D%3D
+`;
+            let totalData = null;
+        fetch(url)
+            .then(resolve => resolve.json())
+            .then(centerInit)
+            .catch(console.log);
+
+        function centerInit(json) {
+            let aryData = json.data; // ['서울특별시', '인천광역시',...]
+            totalData = json.data;
+            let sidos = []; // sidos 에 중복된 값 제거. indexOf.
+            aryData.forEach(function(elem, idx) {
+                if(sidos.indexOf(elem.sido) == -1){
+                    sidos.push(elem.sido)
+                }
+            });
+            
+            sidos.forEach(sido => {
+                let opt = document.createElement('option');
+                opt.innerText = sido;
+                document.querySelector('select[name=sidos]').appendChild(opt);
+            })
+
+            // 조건에 검색.
+            aryData.forEach((center, idx) => {
+                if(idx < 5){
+                    document.querySelector('#list').appendChild(makeCenterInfo(center));
+                }
+            })
+
+            return function() {
+                return aryData;
+            }
+        }
+
+        function makeCenterInfo(center = {}) {
+            const fields = ['id', 'centerName', 'phoneNumber', 'address']
+            console.log(center);
+            const tr = document.createElement('tr');
+            
+            fields.forEach(field => {
+				const td = document.createElement('td');
+				if(field == 'id') {
+					let ref = document.createElement('a');
+					ref.setAttribute('href', 'map.jsp?lat='+center.lat+'&lng='+center.lng+
+						'&centerName='+center.centerName);
+					ref.setAttribute('target', '_blank')
+					ref.innerText = center[field];
+					td.appendChild(ref);
+				} else {
+					 td.innerText = center[field];
+				}
+                tr.appendChild(td);
+            })
+            // checkbox
+            const td = document.createElement('td');
+            const chk = document.createElement('input');
+            chk.setAttribute('type', 'checkbox');
+            td.appendChild(chk);
+            tr.appendChild(td);
+            return tr;
+        }
+
+        // 시도리스트 선택 이벤트
+        document.querySelector('select[name=sidos]').addEventListener('change', centerList);
+
+        function centerList(e) {
+
+            let searchSido = e.target.value;
+            // filter : 반환값이 true 인 항목을 새로운 배열에 저장.
+            const filterAry = totalData.filter(center => center.sido == searchSido);
+
+            document.querySelector('#list').innerHTML = '';
+            filterAry.forEach((center, idx) => {
+                document.querySelector('#list').appendChild(makeCenterInfo(center));
+            })
+        }
+
+        // 선택삭제 이벤트.
+        // 1.이벤트 등록 2.대상선택 3.checked속성의 true를 찾아서 remove().
+        document.querySelector('button[name=delBtn]').addEventListener('click', delSelectedTr);
+        function delSelectedTr(){
+            document.querySelectorAll('#list tr input:checked').forEach(input => {
+                input.parentElement.parentElement.remove();
+            })
+        }
+
+
+    </script>
+</body>
+</html>
